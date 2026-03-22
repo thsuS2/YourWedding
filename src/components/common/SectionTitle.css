@@ -1,0 +1,34 @@
+.section-title-container {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-md);
+}
+
+.section-title-en {
+  font-size: clamp(0.8rem, 3vw, 1.2rem);
+  font-weight: bold;
+  line-height: 1.8;
+  color: var(--text-light);
+}
+
+.section-title-kr {
+  font-family: var(--font-title-kr);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+@media (max-width: 480px) {
+  .section-title-container {
+    margin: var(--spacing-md) 0;
+    padding-bottom: var(--spacing-sm);
+  }
+  
+  .section-title-en {
+    font-size: 0.8rem;
+  }
+  
+  .section-title-kr {
+    font-size: 1rem;
+  }
+}

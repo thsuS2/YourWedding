@@ -1,0 +1,101 @@
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 260px;
+  max-width: calc(100vw - 32px);
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.toast-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(80px);
+  pointer-events: none;
+}
+
+.toast-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.toast-message {
+  flex: 1;
+  word-break: keep-all;
+  color: #333;
+}
+
+.toast-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.toast-close:hover {
+  color: #555;
+}
+
+/* 타입별 무채색 구분 */
+.toast-success .toast-icon { color: #555; }
+.toast-success { border-left: 3px solid #888; }
+
+.toast-error .toast-icon { color: #444; }
+.toast-error { border-left: 3px solid #666; }
+
+.toast-info .toast-icon { color: #555; }
+.toast-info { border-left: 3px solid #888; }
+
+.toast-warning .toast-icon { color: #555; }
+.toast-warning { border-left: 3px solid #777; }
+
+@media (max-width: 768px) {
+  .toast {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    transform: translateY(80px);
+    min-width: auto;
+    max-width: none;
+  }
+
+  .toast-visible {
+    transform: translateY(0);
+  }
+
+  .toast-hidden {
+    transform: translateY(80px);
+  }
+}
+

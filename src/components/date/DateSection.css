@@ -1,0 +1,20 @@
+.date-section {
+  background-color: var(--bg-ivory);
+  padding: var(--spacing-xl) 0;
+  overflow: hidden;
+}
+
+.date-calendar {
+  margin-bottom: var(--spacing-lg);
+}
+
+.date-dday {
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .date-section {
+    padding: var(--spacing-lg) 0;
+  }
+}
+

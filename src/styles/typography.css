@@ -1,0 +1,228 @@
+/**
+ * 타이포그래피 디자인 시스템
+ * 
+ * 6가지 텍스트 스타일 그룹:
+ * 1. Display (대형 제목)
+ * 2. Heading Large (큰 제목)
+ * 3. Heading Medium (중간 제목)
+ * 4. Heading Small (작은 제목/강조)
+ * 5. Body (본문)
+ * 6. Caption (작은 텍스트/캡션)
+ * 
+ * 사용 방법:
+ * <h1 className="text-display">대형 제목</h1>
+ * <h2 className="text-heading-large">큰 제목</h2>
+ * <h3 className="text-heading-medium">중간 제목</h3>
+ * <p className="text-heading-small">작은 제목</p>
+ * <p className="text-body">본문 텍스트</p>
+ * <span className="text-caption">캡션</span>
+ */
+
+/* ============================================
+   1. Display - 대형 제목 (메인 타이틀)
+   ============================================ */
+.text-display {
+  font-family: var(--font-title-kr);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 480px) {
+  .text-display {
+    font-size: 2rem;
+  }
+}
+
+/* ============================================
+   2. Heading Large - 큰 제목 (섹션 타이틀)
+   ============================================ */
+.text-heading-large {
+  font-family: var(--font-title-kr);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+
+@media (max-width: 480px) {
+  .text-heading-large {
+    font-size: 1.3rem;
+  }
+}
+
+/* ============================================
+   3. Heading Medium - 중간 제목 (서브 타이틀)
+   ============================================ */
+.text-heading-medium {
+  font-family: var(--font-title-kr);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+
+@media (max-width: 480px) {
+  .text-heading-medium {
+    font-size: 1.2rem;
+  }
+}
+
+/* ============================================
+   4. Heading Small - 작은 제목/강조 텍스트
+   ============================================ */
+.text-heading-small {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+@media (max-width: 480px) {
+  .text-heading-small {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================
+   5. Body - 본문 텍스트
+   ============================================ */
+.text-body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+/* Body 변형: 회색 본문 */
+.text-body-gray {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text-gray);
+}
+
+/* Body 변형: 중간 굵기 본문 */
+.text-body-medium {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+@media (max-width: 480px) {
+  .text-body,
+  .text-body-gray,
+  .text-body-medium {
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   6. Caption - 작은 텍스트/캡션
+   ============================================ */
+.text-caption {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+/* Caption 변형: 더 작은 텍스트 */
+.text-caption-small {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-light);
+}
+
+@media (max-width: 480px) {
+  .text-caption {
+    font-size: 0.7rem;
+  }
+  
+  .text-caption-small {
+    font-size: 0.7rem;
+  }
+}
+
+/* ============================================
+   특수 스타일
+   ============================================ */
+
+/* 버튼 텍스트 */
+.text-button {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: white;
+}
+
+.text-button-large {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .text-button {
+    font-size: 0.85rem;
+  }
+  
+  .text-button-large {
+    font-size: 1rem;
+  }
+}
+
+/* 인용문/이탤릭 */
+.text-quote {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic !important;
+  line-height: 1.8;
+  color: var(--text-light);
+}
+
+@media (max-width: 480px) {
+  .text-quote {
+    font-size: 0.85rem;
+    font-style: italic !important;
+  }
+}
+
+/* 에러/경고 텍스트 */
+.text-error {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #d00;
+}
+
+/* 흰색 텍스트 (다크 배경용) */
+.text-white {
+  color: white;
+}
+
+/* 회색 텍스트 (보조 정보) */
+.text-gray {
+  color: var(--text-gray);
+}
+
+/* 연한 회색 텍스트 */
+.text-light {
+  color: var(--text-light);
+}
+

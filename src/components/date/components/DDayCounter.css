@@ -1,0 +1,72 @@
+.dday-counter {
+  text-align: center;
+  color: var(--point-pink);
+}
+
+.dday-label {
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  color: var(--point-pink);
+}
+
+.dday-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dday-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50px;
+}
+
+.dday-number {
+  color: var(--point-pink);
+  font-weight: 600;
+}
+
+.dday-label-small {
+  margin-top: 4px;
+}
+
+.dday-separator {
+  color: var(--point-pink);
+  margin: 0 5px;
+}
+
+.dday-label-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 480px) {
+  .dday-counter {
+  }
+
+  .dday-number {
+    font-size: 1.6rem;
+  }
+
+  .dday-label-small {
+    font-size: 0.75rem;
+  }
+
+  .dday-separator {
+    font-size: 1.2rem;
+  }
+
+  .dday-unit {
+    min-width: 45px;
+  }
+}
+

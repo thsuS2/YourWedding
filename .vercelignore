@@ -1,0 +1,5 @@
+# Vercel 빌드 캐시 무시
+node_modules
+dist
+.vercel
+

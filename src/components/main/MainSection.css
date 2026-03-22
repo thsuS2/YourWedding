@@ -1,0 +1,261 @@
+.main-section {
+  background-color: var(--bg-ivory);
+  padding: var(--spacing-md) 0;
+  overflow: hidden;
+}
+
+.main-date-time {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-dark);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.main-quote {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+}
+
+.quote-text {
+  white-space: pre-line;
+  line-height: 1.8;
+}
+
+.main-invitation {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+}
+
+.title-container {
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-md);
+  font-size: var(--font-size-md);
+  color: var(--text-dark);
+}
+
+.title {
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+.invitation-title {
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+.invitation-text {
+  white-space: pre-line;
+  line-height: 1.8;
+}
+
+.main-couple-names {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  gap: var(--spacing-md);
+  justify-items: start;
+}
+
+.couple-parents {
+}
+
+.couple-name {
+  margin: 0;
+}
+
+.couple-separator {
+  color: var(--text-gray);
+  font-size: 1.5rem;
+  margin: 0 var(--spacing-xs);
+}
+
+.main-contact-button {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}
+
+
+/* 연락하기 하단 토글 패널 스타일 */
+.contact-toggle-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+  pointer-events: none; /* 닫혀있을 때 클릭 이벤트 차단 */
+}
+
+.contact-toggle-panel.open {
+  transform: translateY(0);
+  pointer-events: auto; /* 열려있을 때만 클릭 이벤트 허용 */
+}
+
+.contact-toggle-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid var(--bg-ivory);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  border-radius: 24px 24px 0 0;
+}
+
+.contact-toggle-title {
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.contact-toggle-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-gray);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.contact-toggle-close:hover {
+  background: var(--bg-ivory);
+  color: var(--text-dark);
+}
+
+.contact-toggle-content {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.contact-couple-section {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--bg-ivory);
+}
+
+.contact-parents-section {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--bg-ivory);
+}
+
+.contact-parents-section:last-child {
+  border-bottom: none;
+}
+
+.contact-section-title {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-dark);
+}
+
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-name {
+  margin: 0;
+}
+
+.contact-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.contact-btn {
+  padding: 8px;
+  background-color: white;
+  color: var(--text-lightest);
+  border: 1px solid var(--text-lightest);
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.contact-btn:hover {
+  background-color: var(--point-pink);
+  color: white;
+}
+
+.contact-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+  .main-couple-names {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .couple-separator {
+    display: none;
+  }
+
+  .invitation-text {
+    font-size: 0.95rem;
+  }
+
+  .main-date-time {
+    font-size: 1.1rem;
+  }
+
+
+  .contact-toggle-panel {
+    max-height: 90vh;
+  }
+
+  .contact-toggle-header {
+    padding: 16px;
+  }
+
+  .contact-couple-section,
+  .contact-parents-section {
+    padding: 15px;
+  }
+
+  .contact-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-buttons {
+    flex-shrink: 0;
+  }
+
+  .contact-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
+

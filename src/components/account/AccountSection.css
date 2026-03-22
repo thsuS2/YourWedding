@@ -1,0 +1,86 @@
+.account-section {
+  background-color: var(--bg-ivory);
+  padding: var(--spacing-xl) 0;
+  overflow: hidden;
+}
+
+.account-title {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* 통합 카드 */
+.account-card {
+  padding: var(--spacing-lg) 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.account-toggle {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.account-toggle .btn-toggle {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* 상하 패딩은 기본값(.btn) 유지 */
+  min-width: 120px;
+}
+
+.account-toggle .btn-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.25);
+}
+
+.account-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.account-item:last-child {
+  border-bottom: none;
+}
+
+.account-info {
+  flex: 1;
+}
+
+.account-label {
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.account-detail {
+  margin-bottom: 0.25rem;
+  word-break: break-all;
+}
+
+.account-holder {
+  margin-bottom: 0;
+  color: var(--text-gray);
+}
+
+
+@media (max-width: 480px) {
+  .account-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+}
+

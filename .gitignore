@@ -1,0 +1,40 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# 환경 변수
+# .env
+# .env.local
+# .env.production
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Work & Letter directories (작업 일지는 커밋)
+# .Work
+.Letter
+.SETUP_GUIDE.md
+.to-do.md
+.vercel
+.env*.local
+
+# 로컬 비밀 (값은 .env.example 참고)
+.env

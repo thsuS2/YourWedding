@@ -1,0 +1,198 @@
+/* 공통 버튼 기본 스타일 */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  border: 1px solid var(--text-lightest);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  box-sizing: border-box;
+  line-height: 1.5;
+  /* 모든 버튼 높이 통일: 상하 패딩 고정 */
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* Variants */
+.btn-primary {
+  background-color: var(--bg-white);
+  color: var(--text-gray);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--text-lightest);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--bg-white);
+  color: var(--text-gray);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--text-lightest);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Sizes - 앱 전역 통일 (높이는 동일, 좌우 패딩만 다름) */
+.btn-large {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-size: 1.1rem;
+  min-width: 220px;
+}
+
+.btn-default {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.btn-small {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  font-size: 0.95rem;
+  min-width: 88px;
+}
+
+/* Variants: Close 버튼 (size의 min-width 무시) */
+.btn-close {
+  background: none;
+  border: none;
+  color: var(--text-gray);
+  width: 32px;
+  height: 32px;
+  min-width: unset !important;
+  border-radius: 50%;
+  font-size: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+}
+
+.btn-close:hover:not(:disabled) {
+  background: var(--bg-ivory);
+  color: var(--text-dark);
+  transform: none;
+}
+
+/* Variants: Toggle 버튼 (높이는 기본값 유지) */
+.btn-toggle {
+  background: transparent;
+  color: var(--text-gray);
+  border: 1px solid var(--text-lightest);
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: none;
+  /* 상하 패딩은 기본값(.btn) 유지, 좌우만 조정 */
+}
+
+.btn-toggle:hover:not(:disabled) {
+  background: var(--bg-ivory);
+  color: var(--text-gray);
+  border-color: var(--text-lightest);
+  transform: none;
+}
+
+.btn-toggle.active {
+  background: var(--text-lightest);
+  color: var(--text-gray);
+  border-color: var(--text-lightest);
+}
+
+.btn-toggle.active:hover:not(:disabled) {
+  background: var(--point-pink-light);
+  border-color: var(--point-pink-light);
+}
+
+/* Variants: Icon 버튼 (네비게이션 등, size의 min-width 무시) */
+.btn-icon-variant {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text-dark);
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  min-width: unset !important;
+  font-size: 2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon-variant:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+
+/* 특수 상태 */
+.btn-copied {
+  background-color: var(--text-lightest) !important;
+}
+
+.btn-copied:hover {
+  background-color: var(--text-lightest) !important;
+  transform: none !important;
+}
+
+/* 전체 너비 버튼 (특정 상황에서 사용) */
+.btn-full-width {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .btn-large {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    width: 90%;
+    font-size: 1rem;
+    min-width: unset;
+  }
+  
+  .btn-default {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    font-size: 0.95rem;
+    min-width: 100px;
+  }
+  
+  .btn-small {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+    min-width: unset;
+  }
+}
