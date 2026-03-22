@@ -15,10 +15,11 @@ const MapSection = ({ onOpenRSVP }) => {
   const mapInstance = useRef(null);
 
   const openMap = (type) => {
+    const query = encodeURIComponent(`${VENUE.name} ${VENUE.hall}`.trim());
     if (type === 'kakao') {
-      window.open(`https://map.kakao.com/link/search/${encodeURIComponent(VENUE.name)}`, '_blank');
+      window.open(`https://map.kakao.com/link/search/${query}`, '_blank');
     } else if (type === 'naver') {
-      window.open('https://naver.me/502MVbqj', '_blank');
+      window.open(`https://map.naver.com/p/search/${query}`, '_blank');
     }
   };
 
@@ -149,7 +150,11 @@ const MapSection = ({ onOpenRSVP }) => {
         {/* 위치 정보 */}
         <div className="venue-location-info">
           <h3 className="venue-name text-heading-small">{VENUE.name} {VENUE.hall}</h3>
-          <div className="venue-address text-body-gray">{VENUE.address} {VENUE.floor}</div>
+          <div className="venue-address text-body-gray">
+            {VENUE.address}
+            {VENUE.floor ? ` ${VENUE.floor}` : ''}
+            {VENUE.addressDetail ? <><br />{VENUE.addressDetail}</> : null}
+          </div>
         </div>
         
         {/* 카카오맵: ref가 걸린 div는 항상 DOM에 있어야 createMap에서 사용 가능 */}
