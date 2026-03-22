@@ -111,7 +111,7 @@ export const KAKAO_SHARE = {
   get imageUrl() {
     const base = getSiteUrl();
     if (!base) return '';
-    return `${base}/images/kakao.jpg?v=2`;
+    return `${base}/images/kakao.png?v=2`;
   },
   get linkUrl() {
     return getSiteUrl() || (typeof window !== 'undefined' ? window.location.origin : '');

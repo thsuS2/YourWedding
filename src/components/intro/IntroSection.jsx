@@ -36,14 +36,14 @@ const IntroSection = () => {
         <div className="intro-video-wrap">
           {!videoLoaded && (
             <div className="intro-video-poster" aria-hidden>
-              <img src="/images/wedding_intro.jpg" alt="" className="intro-video-poster-image" />
+              <img src="/images/wedding_intro.png" alt="" className="intro-video-poster-image" />
             </div>
           )}
           <video
             ref={videoRef}
             className={`intro-video ${videoLoaded ? 'loaded' : ''}`}
             src="/images/Wedding_video1.mp4"
-            poster="/images/wedding_intro.jpg"
+            poster="/images/wedding_intro.png"
             autoPlay loop playsInline
             onLoadedData={() => setVideoLoaded(true)}
             onCanPlay={() => setVideoLoaded(true)}
