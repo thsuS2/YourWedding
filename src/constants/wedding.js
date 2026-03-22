@@ -88,14 +88,30 @@ export const ACCOUNTS = [
   },
 ];
 
+/**
+ * 배포 사이트 절대 URL (카카오 공유·피드 이미지에 필요)
+ * YourWedding / MyWedding 각각 `.env` · Vercel에 `VITE_SITE_URL` 로 설정 (예: https://xxx.vercel.app)
+ */
+export const getSiteUrl = () => {
+  const fromEnv = import.meta.env.VITE_SITE_URL?.trim().replace(/\/$/, '');
+  if (fromEnv) return fromEnv;
+  if (typeof window !== 'undefined') return window.location.origin;
+  return '';
+};
+
 // 카카오톡 공유하기용 (버튼 클릭 시 피드 카드 이미지)
-const SITE_URL = 'https://jisooyusinwedding.vercel.app';
 export const KAKAO_SHARE = {
   title: '박지수 ❤ 김유신 결혼합니다.',
   description: '5월 30일(토) 오후 5시 30분, 보타닉파크웨딩 카라홀',
-  // 이미지 URL에 버전 파라미터 추가하여 카카오톡 캐시 무효화
-  imageUrl: `${SITE_URL}/images/kakao.jpg?v=2`, // 카카오 공유하기 = kakao.jpg
-  linkUrl: SITE_URL,
+  /** 이미지 URL에 버전 파라미터 추가하여 카카오톡 캐시 무효화 — getter로 현재 배포 URL 반영 */
+  get imageUrl() {
+    const base = getSiteUrl();
+    if (!base) return '';
+    return `${base}/images/kakao.jpg?v=2`;
+  },
+  get linkUrl() {
+    return getSiteUrl() || (typeof window !== 'undefined' ? window.location.origin : '');
+  },
 };
 
 // 메타 정보
@@ -107,8 +123,9 @@ export const META = {
   ogTitle: `${COUPLE.bride.name} 🫶 ${COUPLE.groom.name} 결혼합니다`,
   ogDescription: `${getFormattedDate()} - 봄날의 정원 속, 우리의 약속`,
   ogImage: '/images/main.png',
-  ogUrl: typeof window !== 'undefined' 
-    ? window.location.href
-    : 'https://jisooyusinwedding.vercel.app/',
+  ogUrl:
+    typeof window !== 'undefined'
+      ? window.location.href
+      : `${(import.meta.env.VITE_SITE_URL || '').replace(/\/$/, '') || ''}/`,
 };
 
