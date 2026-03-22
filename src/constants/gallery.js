@@ -47,7 +47,8 @@ export const GALLERY_IMAGES = [
   '37.jpg',
   '38.jpg',
   '39.jpg',
-  '40.jpg'
+  '40.jpg',
+  'ChatGPT_wedding.png',
 ];
 
 /**

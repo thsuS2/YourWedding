@@ -24,6 +24,12 @@ export const getFormattedDateWithWeekday = () => {
   return `${getFormattedDate()} ${WEDDING_DATE.weekday} ${WEDDING_DATE.time}`;
 };
 
+/** 인트로 영문 날짜 (예: Jun 7, 2026) */
+export const getFormattedDateEnglishShort = () => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${months[WEDDING_DATE.month - 1]} ${WEDDING_DATE.day}, ${WEDDING_DATE.year}`;
+};
+
 // 커플 정보 — 혼주·연락처는 이후 수정 가능
 export const COUPLE = {
   bride: {

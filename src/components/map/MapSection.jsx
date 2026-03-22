@@ -8,7 +8,7 @@ import mapImage from '../../assets/images/map.png';
 import SectionTitle from '../common/SectionTitle';
 import Button from '../common/Button';
 
-const MapSection = ({ onOpenRSVP }) => {
+const MapSection = () => {
   const { showError } = useToastContext();
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapContainer = useRef(null);
@@ -255,17 +255,6 @@ const MapSection = ({ onOpenRSVP }) => {
           </div>
         </div>
 
-        
-        {/* 참석의사 전달하기 버튼 */}
-        <div className="rsvp-button-section">
-          <Button
-            variant="primary"
-            size="large"
-            onClick={onOpenRSVP}
-          >
-            참석의사 전달하기
-          </Button>
-        </div>
       </div>
     </section>
   );

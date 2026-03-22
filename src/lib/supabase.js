@@ -8,7 +8,8 @@ import { createClient } from '@supabase/supabase-js';
  * 2. .env 파일에 다음 환경 변수 설정:
  *    - VITE_SUPABASE_URL
  *    - VITE_SUPABASE_ANON_KEY
- * 3. messages 테이블 생성 (SETUP_GUIDE.md 참고)
+ * 3. messages 테이블 생성 (SETUP_GUIDE.md 참고)  
+ *    YourWedding: `VITE_SUPABASE_MESSAGES_TABLE`로 별도 테이블명 지정 가능 — docs/MESSAGES_TABLE_YOURWEDDING.md
  */
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;

@@ -1,21 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase, isSupabaseAvailable } from '../lib/supabase';
 
 /**
- * Supabase 연동 Hook
- * 
- * 기능:
- * - 축하 메시지 목록 가져오기 (실시간 구독)
- * - 새 메시지 작성
- * - 관계별 필터링
+ * 메시지 테이블명 — 동일 Supabase 프로젝트에서 테이블만 분리
+ * Vercel/.env: VITE_SUPABASE_MESSAGES_TABLE=messages_your_wedding
  */
+const getMessagesTable = () =>
+  import.meta.env.VITE_SUPABASE_MESSAGES_TABLE?.trim() || 'messages';
 
 export const useMessages = () => {
+  const table = useMemo(() => getMessagesTable(), []);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 메시지 목록 가져오기
   const fetchMessages = useCallback(async () => {
     if (!isSupabaseAvailable()) {
       setLoading(false);
@@ -23,12 +21,12 @@ export const useMessages = () => {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('messages')
+      const { data, error: qError } = await supabase
+        .from(table)
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (qError) throw qError;
       setMessages(data || []);
       setError(null);
     } catch (err) {
@@ -37,60 +35,59 @@ export const useMessages = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [table]);
 
-  // 새 메시지 추가
-  const addMessage = useCallback(async (messageData) => {
-    if (!isSupabaseAvailable()) {
-      throw new Error('Supabase가 설정되지 않았습니다.');
-    }
+  const addMessage = useCallback(
+    async (messageData) => {
+      if (!isSupabaseAvailable()) {
+        throw new Error('Supabase가 설정되지 않았습니다.');
+      }
 
-    try {
-      const { data, error } = await supabase
-        .from('messages')
-        .insert([messageData])
-        .select()
-        .single();
+      try {
+        const { data, error: insError } = await supabase
+          .from(table)
+          .insert([messageData])
+          .select()
+          .single();
 
-      if (error) throw error;
-      
-      // 로컬 상태 업데이트
-      setMessages(prev => [data, ...prev]);
-      return data;
-    } catch (err) {
-      console.error('메시지 추가 실패:', err);
-      throw err;
-    }
-  }, []);
+        if (insError) throw insError;
 
-  // 실시간 구독 설정
+        setMessages((prev) => [data, ...prev]);
+        return data;
+      } catch (err) {
+        console.error('메시지 추가 실패:', err);
+        throw err;
+      }
+    },
+    [table]
+  );
+
   useEffect(() => {
     fetchMessages();
 
     if (!isSupabaseAvailable()) return;
 
-    // 실시간 변경사항 구독
+    const channelName = `messages_rt_${table.replace(/[^a-zA-Z0-9_]/g, '_')}`;
     const subscription = supabase
-      .channel('messages_channel')
+      .channel(channelName)
       .on(
         'postgres_changes',
         {
           event: 'INSERT',
           schema: 'public',
-          table: 'messages'
+          table,
         },
         (payload) => {
           console.log('새 메시지:', payload.new);
-          setMessages(prev => [payload.new, ...prev]);
+          setMessages((prev) => [payload.new, ...prev]);
         }
       )
       .subscribe();
 
-    // 클린업
     return () => {
       subscription.unsubscribe();
     };
-  }, [fetchMessages]);
+  }, [fetchMessages, table]);
 
   return {
     messages,
@@ -100,4 +97,3 @@ export const useMessages = () => {
     fetchMessages,
   };
 };
-
