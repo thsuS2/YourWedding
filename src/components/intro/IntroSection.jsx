@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './IntroSection.css';
-// import PetalAnimation from '../PetalAnimation';
-import PetalAnimation from '../SnowParticleAnimation';
+import PetalAnimation from '../PetalAnimation';
+// import PetalAnimation from '../SnowParticleAnimation';
 // import PetalAnimation from '../ButterflyAnimation';
 // import PetalAnimation from '../LeafAnimation';
 import IntroAudioBar from './IntroAudioBar';
