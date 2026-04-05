@@ -105,8 +105,8 @@ export const ACCOUNTS = [
   {
     side: 'bride',
     name: '신부 최지윤',
-    bank: '우리은행',
-    number: '070-232716-02-101',
+    bank: '국민은행',
+    number: '910-4733-2669',
     holder: COUPLE.bride.fullName,
   },
 ];
