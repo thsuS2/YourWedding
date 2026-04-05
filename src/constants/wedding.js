@@ -71,7 +71,8 @@ export const VENUE = {
   naverMapUrl: '',
   lat: 37.583917,
   lng: 127.059028,
-  infoWindowImage: '/images/1.jpg',
+  /** 카카오맵 마커 인포윈도우 썸네일 — public/images 아래 실제 파일 경로 */
+  infoWindowImage: '/images/kakao.jpg',
   transportation: {
     subway: `1호선·경의중앙선 [청량리역]
 버스 환승: '청량리역환승센터 3번 승강장'에서 버스 승차
@@ -128,7 +129,7 @@ export const KAKAO_SHARE = {
   get imageUrl() {
     const base = getSiteUrl();
     if (!base) return '';
-    return `${base}/images/kakao.png?v=2`;
+    return `${base}/images/kakao.jpg?v=3`;
   },
   get linkUrl() {
     return getSiteUrl() || (typeof window !== 'undefined' ? window.location.origin : '');
@@ -143,7 +144,7 @@ export const META = {
   author: `${COUPLE.bride.name} & ${COUPLE.groom.name}`,
   ogTitle: `${COUPLE.bride.name} 🫶 ${COUPLE.groom.name} 결혼합니다`,
   ogDescription: `${getFormattedDate()} 일요일 오후 — 서울시립대 자작마루 야외예식장`,
-  ogImage: '/images/main.png',
+  ogImage: '/images/share_img.jpg',
   ogUrl:
     typeof window !== 'undefined'
       ? window.location.href

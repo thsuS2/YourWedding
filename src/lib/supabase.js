@@ -15,6 +15,12 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+if (import.meta.env.PROD && (!supabaseUrl?.trim() || !supabaseAnonKey?.trim())) {
+  console.error(
+    '[Supabase] VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY가 빌드에 없습니다. Vercel → Settings → Environment Variables에 추가한 뒤 재배포하세요.'
+  );
+}
+
 // Supabase 클라이언트 생성
 export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey)

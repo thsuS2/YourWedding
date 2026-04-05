@@ -43,25 +43,27 @@ const RSVPModal = ({ isOpen, onClose }) => {
     setSubmitting(true);
 
     try {
-      // Supabase에 저장
-      if (isSupabaseAvailable()) {
-        const companionRaw = formData.companion;
-        const companion =
-          companionRaw === '' || companionRaw === null || companionRaw === undefined
-            ? null
-            : Number.parseInt(String(companionRaw), 10);
-
-        const { error } = await supabase
-          .from('rsvp')
-          .insert([{
-            side: formData.side,
-            name: formData.name.trim(),
-            companion: Number.isFinite(companion) ? companion : null,
-            meal: formData.meal,
-          }]);
-
-        if (error) throw error;
+      if (!isSupabaseAvailable()) {
+        showError('서버 연결을 할 수 없습니다. 잠시 후 다시 시도해주세요.');
+        return;
       }
+
+      const companionRaw = formData.companion;
+      const companion =
+        companionRaw === '' || companionRaw === null || companionRaw === undefined
+          ? null
+          : Number.parseInt(String(companionRaw), 10);
+
+      const { error } = await supabase
+        .from('rsvp')
+        .insert([{
+          side: formData.side,
+          name: formData.name.trim(),
+          companion: Number.isFinite(companion) ? companion : null,
+          meal: formData.meal,
+        }]);
+
+      if (error) throw error;
 
       showSuccess('참석의사가 전달되었습니다!');
       setFormData({ side: '신랑측', name: '', companion: '', meal: '예정' });

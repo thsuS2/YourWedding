@@ -117,12 +117,13 @@ const MapSection = ({ onOpenRSVP }) => {
           map: mapInstance.current,
         });
 
+        /* 가로형 썸네일: 상단 풀폭 배너 + 하단 텍스트 (인포창은 넓게, 글자는 사이트 타이포 스케일보다 작게) */
         const imgHtml = VENUE.infoWindowImage
-          ? `<img src="${VENUE.infoWindowImage}" alt="" style="display:block;width:75px;height:100px;object-fit:cover;border-radius:6px;flex-shrink:0;" />`
+          ? `<img src="${VENUE.infoWindowImage}" alt="" style="display:block;width:100%;height:5.25rem;object-fit:cover;object-position:center;border-radius:0.375rem;" />`
           : '';
-        const textHtml = `<div style="font-size:calc(0.75rem * var(--typography-scale));text-align:center;line-height:1.5;flex:1;">${VENUE.name}<br/>${VENUE.hall}<br/><span style="color:#666;font-size:calc(0.6875rem * var(--typography-scale));">${getFormattedDate()}<br/>${WEDDING_DATE.time}</span></div>`;
+        const textHtml = `<div style="font-size:0.6875rem;font-weight:600;text-align:center;line-height:1.4;color:#333;">${VENUE.name}<br/>${VENUE.hall}<br/><span style="color:#666;font-weight:400;font-size:0.625rem;line-height:1.45;">${getFormattedDate()}<br/>${WEDDING_DATE.time}</span></div>`;
         const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="padding:10px;display:flex;align-items:center;justify-content:center;gap:10px;min-width:200px;">${imgHtml}${textHtml}</div>`,
+          content: `<div style="box-sizing:border-box;padding:0.625rem 0.75rem;display:flex;flex-direction:column;align-items:stretch;gap:0.5rem;min-width:min(16.5rem,88vw);max-width:17.5rem;">${imgHtml}${textHtml}</div>`,
         });
         infowindow.open(mapInstance.current, marker);
 
