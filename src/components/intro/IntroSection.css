@@ -1,5 +1,5 @@
 .intro-section {
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   max-width: 100vw;
   display: flex;
@@ -14,7 +14,7 @@
 .intro-content {
   max-width: var(--max-width);
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   padding: 0 var(--spacing-md);
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@
   transform: translateX(-100%);
 }
 
-/* 배경 동영상 레이어 */
+/* 배경 GIF 레이어 (img.intro-video) */
 .intro-video-wrap {
   position: absolute;
   top: 0;
@@ -66,23 +66,15 @@
   display: block;
   opacity: 0;
   transition: opacity 0.5s ease-in;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .intro-video.loaded {
   opacity: 1;
 }
 
-/* 동영상 대신 사용하는 정적 이미지 */
-.intro-hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  opacity: 1;
-}
-
-/* 동영상 로딩 전 포스터 이미지 */
+/* GIF 로딩 전 포스터 */
 .intro-video-poster {
   position: absolute;
   top: 0;
@@ -95,13 +87,14 @@
 
 .intro-video-poster-image {
   width: 100%;
-  height: 100%;
+  height: 99%;
   object-fit: cover;
-  object-position: center;
+  /* 가로로 긴 사진: cover 유지(여백 없음), 좌우 크롭 시 보이는 구간만 살짝 오른쪽·세로 중앙 기준 */
+  object-position: 46% 50%;
   display: block;
 }
 
-/* 동영상 하단 → 메인 섹션으로 자연스럽게 이어지는 그라데이션 */
+/* 하단 그라데이션 */
 .intro-video-gradient {
   position: absolute;
   bottom: 0;
@@ -113,68 +106,6 @@
   pointer-events: none;
   z-index: 2;
 }
-
-/* 상단 고정 음소거 버튼 - 가짜 이퀄라이저 */
-.intro-sound-btn {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 100;
-  width: 40px;
-  height: 22px;
-  border: none;
-  border-radius: 30%;
-  background: rgba(255, 255, 255, 0.22);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  box-shadow: var(--shadow-md);
-  opacity: 0.85;
-}
-
-.intro-sound-btn:hover {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.intro-sound-btn:active {
-  opacity: 1;
-}
-
-.sound-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 15px;
-}
-
-.sound-bars span {
-  width: 2.5px;
-  height: 4px;
-  background: var(--text-light);
-  border-radius: 2px;
-  animation: soundBounce 0.8s infinite ease-in-out;
-}
-
-.sound-bars span:nth-child(1) { animation-delay: 0.05s; }
-.sound-bars span:nth-child(2) { animation-delay: 0.5s; }
-.sound-bars span:nth-child(3) { animation-delay: 0.2s; }
-.sound-bars span:nth-child(4) { animation-delay: 0.6s; }
-
-@keyframes soundBounce {
-  0%, 100% { height: 6px; }
-  50% { height: 10px; }
-}
-
-/* 음소거 상태: 바가 낮게 고정 */
-.intro-sound-btn.muted .sound-bars span {
-  animation: none;
-  height: 4px;
-  opacity: 0.4;
-}
-
-
 
 .intro-text {
   position: relative;
@@ -352,7 +283,7 @@
 
 @media (max-width: 480px) {
   .intro-content {
-    min-height: 100vh;
+    min-height: 80vh;
     padding-bottom: var(--spacing-lg);
   }
   

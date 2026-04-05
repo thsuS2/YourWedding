@@ -37,7 +37,7 @@ export const shareKakao = () => {
   if (typeof window === 'undefined') return;
   
   if (!window.Kakao || !window.Kakao.isInitialized()) {
-    alert('카카오톡 공유 기능을 사용할 수 없습니다.\n잠시 후 다시 시도해주세요.');
+    console.warn('Kakao SDK 미초기화 — 공유 생략');
     return;
   }
 
@@ -66,7 +66,6 @@ export const shareKakao = () => {
     });
   } catch (error) {
     console.error('카카오톡 공유 실패:', error);
-    alert('카카오톡 공유에 실패했습니다.\n다시 시도해주세요.');
   }
 };
 

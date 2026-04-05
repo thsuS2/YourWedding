@@ -203,13 +203,13 @@
 
 .rsvp-radio-label:has(input:checked) {
   border-color: var(--point-pink);
-  background: rgba(250, 218, 221, 0.1);
+  background: rgba(193, 182, 255, 0.1);
 }
 
 
 .rsvp-radio-label:hover {
   border-color: var(--point-pink);
-  background: rgba(250, 218, 221, 0.05);
+  background: rgba(193, 182, 255, 0.1);
 }
 
 .rsvp-radio-label:hover .radio-custom {
@@ -223,7 +223,7 @@
 
 .rsvp-meal-label:has(input:checked) {
   border-color: var(--point-pink);
-  background: rgba(255, 182, 193, 0.1);
+  background: rgba(193, 182, 255, 0.1);
 }
 
 .rsvp-meal-label:has(input:checked) .radio-meal-custom {
@@ -236,7 +236,7 @@
 
 .rsvp-meal-label:hover {
   border-color: var(--point-pink);
-  background: rgba(255, 182, 193, 0.05);
+  background: rgba(193, 182, 255, 0.1);
 }
 
 .rsvp-meal-label:hover .radio-meal-custom {

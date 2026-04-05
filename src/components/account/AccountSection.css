@@ -1,7 +1,8 @@
 .account-section {
   background-color: var(--bg-ivory);
-  padding: var(--spacing-xl) 0;
-  overflow: hidden;
+  padding: var(--spacing-xl) 0 var(--spacing-lg);
+  /* 하단 카드 box-shadow 가 잘리지 않도록 (부모 overflow 無) */
+  overflow: visible;
 }
 
 .account-title {
@@ -9,78 +10,222 @@
   margin-bottom: var(--spacing-lg);
 }
 
-/* 통합 카드 */
-.account-card {
-  padding: var(--spacing-lg) 0;
+.account-intro {
   max-width: 600px;
-  margin: 0 auto;
-}
-
-.account-toggle {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
-  flex-wrap: wrap;
-}
-
-.account-toggle .btn-toggle {
-  padding-left: 2rem;
-  padding-right: 2rem;
-  /* 상하 패딩은 기본값(.btn) 유지 */
-  min-width: 120px;
-}
-
-.account-toggle .btn-toggle:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.25);
-}
-
-.account-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
-
-.account-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-md);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.account-item:last-child {
-  border-bottom: none;
-}
-
-.account-info {
-  flex: 1;
-}
-
-.account-label {
-  margin-bottom: 0.5rem;
+  margin: 0 auto var(--spacing-lg);
+  text-align: center;
+  line-height: 1.65;
   color: var(--text-dark);
 }
 
-.account-detail {
-  margin-bottom: 0.25rem;
-  word-break: break-all;
-}
-
-.account-holder {
-  margin-bottom: 0;
+.account-intro-line {
+  display: block;
+  font-size: 0.8rem;
   color: var(--text-gray);
 }
 
-
-@media (max-width: 480px) {
-  .account-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
+.account-accordions {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-md) var(--spacing-md);
 }
 
+.account-accordion-card {
+  background: var(--bg-white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  /* 그림자는 바깥으로 — 펼침 클립은 .account-accordion-expand 에서만 */
+  overflow: visible;
+}
+
+/* 펼침: 흰 카드가 아래로 자연스럽게 늘어나는 느낌 */
+.account-accordion-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+}
+
+.account-accordion-expand.is-open {
+  grid-template-rows: 1fr;
+}
+
+.account-accordion-expand-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.account-accordion-expand:not(.is-open) .account-accordion-expand-inner {
+  pointer-events: none;
+}
+
+/* 프로젝트 공통 .btn-toggle 스타일 유지, 아코디언 레이아웃만 보정 */
+.account-accordion-trigger.btn-toggle {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1rem;
+  min-width: 0;
+  box-shadow: none;
+  /* 닫힘: 전역 .btn-toggle 의 border-radius(8px) 유지 */
+  transition: border-radius 0.35s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.account-accordion-card:has(.account-accordion-expand.is-open) .account-accordion-trigger.btn-toggle {
+  /* 펼침: 상단만 8px — 공통 토글과 동일 반경 */
+  border-radius: 8px 8px 0 0;
+}
+
+.account-accordion-trigger.btn-toggle:focus-visible {
+  outline: 2px solid var(--text-lightest);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.account-accordion-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+  color: inherit;
+}
+
+.account-accordion-chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  opacity: 0.85;
+  transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.account-accordion-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.account-accordion-body {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.32s ease,
+    transform 0.42s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.account-accordion-expand.is-open .account-accordion-body {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.04s, 0.04s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account-accordion-expand {
+    transition-duration: 0.01ms;
+  }
+
+  .account-accordion-trigger.btn-toggle {
+    transition-duration: 0.01ms;
+  }
+
+  .account-accordion-chevron {
+    transition-duration: 0.01ms;
+  }
+
+  .account-accordion-body {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+    transform: none;
+  }
+
+  .account-accordion-expand.is-open .account-accordion-body {
+    transition-delay: 0s;
+  }
+}
+
+.account-row-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 1행: 이름(전체 너비, 줄바꿈 허용) → 2행: 은행·계좌·복사 한 줄 */
+.account-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 은행명·계좌번호(왼쪽) | 복사 버튼(오른쪽) — space-between */
+.account-row-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.account-row:last-child {
+  border-bottom: none;
+}
+
+.account-row-name {
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.45;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.account-row-detail {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  word-break: break-all;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+/* 아이콘 복사 버튼 — 행 안 고정, primary 호버 그림자는 아이콘형과 맞지 않아 제거 */
+.account-section .account-copy-btn.btn-icon-variant {
+  flex-shrink: 0;
+}
+
+.account-section .account-copy-btn.btn-icon-variant:hover:not(:disabled) {
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .account-row {
+    gap: 0.45rem;
+  }
+
+  .account-row-right {
+    gap: 0.35rem;
+  }
+
+  .account-row-detail {
+    font-size: 0.8rem;
+  }
+
+  /* 전역 .btn-small { width:100% } — 아이콘 버튼은 고정 크기 유지 */
+  .account-section .account-copy-btn.btn-icon-variant.btn-small {
+    width: 36px;
+    min-width: unset !important;
+  }
+}

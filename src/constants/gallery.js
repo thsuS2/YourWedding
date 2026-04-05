@@ -1,11 +1,15 @@
 /**
  * 갤러리 이미지 목록
- *
- * scripts/generate-gallery-list.js 로 자동 생성 가능.
- * 현재 public/images/gallery/ 내 파일 기준.
+ * 
+ * 이 파일은 scripts/generate-gallery-list.js에 의해 자동 생성됩니다.
+ * public/images/gallery/ 폴더의 이미지 파일만 자동으로 포함합니다.
+ * 
+ * 빌드 전에 자동으로 업데이트됩니다.
  */
 
-export const GALLERY_IMAGES = ['ChatGPT_wedding.png'];
+export const GALLERY_IMAGES = [
+  'ChatGPT_wedding.png'
+];
 
 /**
  * 이미지 URL 생성 헬퍼 함수

@@ -3,23 +3,26 @@ import './MapSection.css';
 import { VENUE, getFormattedDate, WEDDING_DATE } from '../../constants/wedding';
 import { useToastContext } from '../../contexts/ToastContext';
 import { SiKakao, SiNaver } from 'react-icons/si';
-import { IoBusSharp, IoCarSharp, IoSubwaySharp } from 'react-icons/io5';
-import mapImage from '../../assets/images/map.png';
+import { IoBusSharp, IoCarSharp, IoFlagOutline, IoSubwaySharp } from 'react-icons/io5';
+import mapImage from '../../assets/images/map.jpeg';
 import SectionTitle from '../common/SectionTitle';
 import Button from '../common/Button';
 
-const MapSection = () => {
+const MapSection = ({ onOpenRSVP }) => {
   const { showError } = useToastContext();
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
 
   const openMap = (type) => {
-    const query = encodeURIComponent(`${VENUE.name} ${VENUE.hall}`.trim());
     if (type === 'kakao') {
-      window.open(`https://map.kakao.com/link/search/${query}`, '_blank');
+      window.open(`https://map.kakao.com/link/search/${encodeURIComponent(VENUE.name)}`, '_blank');
     } else if (type === 'naver') {
-      window.open(`https://map.naver.com/p/search/${query}`, '_blank');
+      const searchQuery =
+        VENUE.naverSearchQuery?.trim() || `${VENUE.name} ${VENUE.hall}`.trim();
+      const fallback = `https://map.naver.com/p/search/${encodeURIComponent(searchQuery)}`;
+      const url = VENUE.naverMapUrl?.trim() || fallback;
+      window.open(url, '_blank');
     }
   };
 
@@ -117,7 +120,7 @@ const MapSection = () => {
         const imgHtml = VENUE.infoWindowImage
           ? `<img src="${VENUE.infoWindowImage}" alt="" style="display:block;width:75px;height:100px;object-fit:cover;border-radius:6px;flex-shrink:0;" />`
           : '';
-        const textHtml = `<div style="font-size:12px;text-align:center;line-height:1.5;flex:1;">${VENUE.name}<br/>${VENUE.hall}<br/><span style="color:#666;font-size:11px;">${getFormattedDate()}<br/>${WEDDING_DATE.time}</span></div>`;
+        const textHtml = `<div style="font-size:calc(0.75rem * var(--typography-scale));text-align:center;line-height:1.5;flex:1;">${VENUE.name}<br/>${VENUE.hall}<br/><span style="color:#666;font-size:calc(0.6875rem * var(--typography-scale));">${getFormattedDate()}<br/>${WEDDING_DATE.time}</span></div>`;
         const infowindow = new window.kakao.maps.InfoWindow({
           content: `<div style="padding:10px;display:flex;align-items:center;justify-content:center;gap:10px;min-width:200px;">${imgHtml}${textHtml}</div>`,
         });
@@ -149,7 +152,9 @@ const MapSection = () => {
         
         {/* 위치 정보 */}
         <div className="venue-location-info">
-          <h3 className="venue-name text-heading-small">{VENUE.name} {VENUE.hall}</h3>
+          <h3 className="venue-name text-heading-small">
+            {VENUE.name} 내 {VENUE.hall}
+          </h3>
           <div className="venue-address text-body-gray">
             {VENUE.address}
             {VENUE.floor ? ` ${VENUE.floor}` : ''}
@@ -167,9 +172,9 @@ const MapSection = () => {
                 alt="지도"
                 className="map-fallback-image"
               />
-              <div className="map-placeholder-overlay">
+              {/* <div className="map-placeholder-overlay">
                 <div className="map-placeholder-text text-body text-white">지도를 보려면 클릭하세요</div>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
@@ -197,68 +202,102 @@ const MapSection = () => {
         {/* 교통수단 정보 */}
         <div className="transportation-section fade-in">
           <div className="transport-item">
-            <div className="transport-label text-heading-small">지하철</div>
+            <div className="transport-label text-heading-small">대중교통</div>
             <div className="transport-detail text-body-gray">
-              <IoSubwaySharp 
-                size={16} 
-                style={{ 
-                  verticalAlign: 'middle', 
+              <IoSubwaySharp
+                size={16}
+                style={{
+                  verticalAlign: 'middle',
                   marginRight: '0.5rem',
-                  color: 'var(--text-lightest)'
-                }} 
+                  color: 'var(--text-lightest)',
+                }}
               />
               {VENUE.transportation.subway}
             </div>
           </div>
-          <div className="transport-divider"></div>
-          <div className="transport-item">
-            <div className="transport-label text-heading-small">버스</div>
-            <div className="transport-detail text-body-gray">
-              {VENUE.transportation.bus.split('|').map((part, index) => {
-                const trimmedPart = part.trim();
-                if (!trimmedPart) return null;
-                
-                return (
-                  <span key={index} style={{ display: 'block', marginBottom: index === 0 ? '0.5rem' : '0.25rem' }}>
-                    {index > 0 && (
-                      <>
-                        <IoBusSharp 
-                          size={16} 
-                          style={{ 
-                            verticalAlign: 'middle', 
-                            marginRight: '0.5rem',
-                            color: 'var(--text-lightest)'
-                          }} 
-                        />
-                      </>
-                    )}
-                    {trimmedPart}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
+          {VENUE.transportation.bus?.trim() ? (
+            <>
+              <div className="transport-divider"></div>
+              <div className="transport-item">
+                <div className="transport-label text-heading-small">버스</div>
+                <div className="transport-detail text-body-gray">
+                  {VENUE.transportation.bus.split('|').map((part, index) => {
+                    const trimmedPart = part.trim();
+                    if (!trimmedPart) return null;
+
+                    return (
+                      <span
+                        key={index}
+                        style={{ display: 'block', marginBottom: index === 0 ? '0.5rem' : '0.25rem' }}
+                      >
+                        {index > 0 && (
+                          <IoBusSharp
+                            size={16}
+                            style={{
+                              verticalAlign: 'middle',
+                              marginRight: '0.5rem',
+                              color: 'var(--text-lightest)',
+                            }}
+                          />
+                        )}
+                        {trimmedPart}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
+          ) : null}
           <div className="transport-divider"></div>
           <div className="transport-item">
             <div className="transport-label text-heading-small">자가용</div>
             <div className="transport-detail text-body-gray">
-              <IoCarSharp 
-                size={16} 
-                style={{ 
-                  verticalAlign: 'middle', 
+              <IoCarSharp
+                size={16}
+                style={{
+                  verticalAlign: 'middle',
                   marginRight: '0.5rem',
-                  color: 'var(--text-lightest)'
-                }} 
+                  color: 'var(--text-lightest)',
+                }}
               />
               {VENUE.transportation.car}
             </div>
           </div>
+          {VENUE.transportation.campus?.trim() ? (
+            <>
+              <div className="transport-divider"></div>
+              <div className="transport-item">
+                <div className="transport-label text-heading-small">캠퍼스 안내</div>
+                <div className="transport-detail text-body-gray">
+                  <IoFlagOutline
+                    size={16}
+                    style={{
+                      verticalAlign: 'middle',
+                      marginRight: '0.5rem',
+                      color: 'var(--text-lightest)',
+                    }}
+                  />
+                  {VENUE.transportation.campus}
+                </div>
+              </div>
+            </>
+          ) : null}
         </div>
 
+        
+        {/* 참석의사 전달하기 버튼 */}
+        <div className="rsvp-button-section">
+          <Button
+            variant="primary"
+            size="large"
+            onClick={onOpenRSVP}
+          >
+            참석의사 전달하기
+          </Button>
+        </div>
       </div>
     </section>
   );
 };
 
 export default MapSection;
-

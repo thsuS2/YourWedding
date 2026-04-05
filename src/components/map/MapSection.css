@@ -21,6 +21,7 @@
   box-shadow: var(--shadow-md);
   position: relative;
   cursor: pointer;
+  background-color: var(--bg-ivory, #f7f5f0);
 }
 
 .kakao-map {
@@ -55,7 +56,9 @@
 .map-fallback-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 
 .map-placeholder-overlay {

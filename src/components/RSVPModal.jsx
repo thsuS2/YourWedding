@@ -45,12 +45,18 @@ const RSVPModal = ({ isOpen, onClose }) => {
     try {
       // Supabase에 저장
       if (isSupabaseAvailable()) {
+        const companionRaw = formData.companion;
+        const companion =
+          companionRaw === '' || companionRaw === null || companionRaw === undefined
+            ? null
+            : Number.parseInt(String(companionRaw), 10);
+
         const { error } = await supabase
           .from('rsvp')
           .insert([{
             side: formData.side,
             name: formData.name.trim(),
-            companion: formData.companion.trim() || null,
+            companion: Number.isFinite(companion) ? companion : null,
             meal: formData.meal,
           }]);
 

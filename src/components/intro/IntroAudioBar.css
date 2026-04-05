@@ -1,0 +1,89 @@
+/* 크롬 스타일에 가까운 흰색 알약형 플레이어 — 기존 인트로 음소거 버튼과 동일 우측 상단 (약 70% 스케일) */
+.intro-audio-bar {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top, 0px));
+  right: max(16px, env(safe-area-inset-right, 0px));
+  left: auto;
+  bottom: auto;
+  transform: none;
+  z-index: 120;
+
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.35rem;
+  max-width: min(200px, calc(100vw - 2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+
+  /* 배경 60% 불투명 */
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 9999px;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.intro-audio-bar__play,
+.intro-audio-bar__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.intro-audio-bar__play:hover,
+.intro-audio-bar__icon:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.intro-audio-bar__play:active,
+.intro-audio-bar__icon:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.intro-audio-bar__track {
+  flex: 1;
+  min-width: 50px;
+  height: 4px;
+  border-radius: 999px;
+  background: #e0e0e0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-audio-bar__track:focus-visible {
+  outline: 2px solid var(--point-pink, #e8a0a8);
+  outline-offset: 2px;
+}
+
+.intro-audio-bar__track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #5c5c5c;
+  border-radius: 999px;
+  pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+@media (max-width: 480px) {
+  .intro-audio-bar {
+    gap: 0.3rem;
+    padding: 0.25rem 0.4rem 0.25rem 0.3rem;
+    max-width: calc(100vw - 1.5rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+  }
+
+  .intro-audio-bar__track {
+    min-width: 40px;
+  }
+}

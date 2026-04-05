@@ -91,7 +91,7 @@
   height: 32px;
   min-width: unset !important;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: calc(1.5rem * var(--typography-scale));
   padding: 0;
   display: flex;
   align-items: center;

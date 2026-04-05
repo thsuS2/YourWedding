@@ -8,8 +8,8 @@ import { createClient } from '@supabase/supabase-js';
  * 2. .env 파일에 다음 환경 변수 설정:
  *    - VITE_SUPABASE_URL
  *    - VITE_SUPABASE_ANON_KEY
- * 3. messages 테이블 생성 (SETUP_GUIDE.md 참고)  
- *    YourWedding: `VITE_SUPABASE_MESSAGES_TABLE`로 별도 테이블명 지정 가능 — docs/MESSAGES_TABLE_YOURWEDDING.md
+ * 3. `supabase/migrations` DDL 실행 — 기본 테이블명 `message`(축하 메시지), `rsvp`(참석의사)
+ *    테이블명을 바꾸면 `VITE_SUPABASE_MESSAGES_TABLE`만 맞추면 됩니다.
  */
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;

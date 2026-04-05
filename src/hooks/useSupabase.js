@@ -6,7 +6,7 @@ import { supabase, isSupabaseAvailable } from '../lib/supabase';
  * Vercel/.env: VITE_SUPABASE_MESSAGES_TABLE=messages_your_wedding
  */
 const getMessagesTable = () =>
-  import.meta.env.VITE_SUPABASE_MESSAGES_TABLE?.trim() || 'messages';
+  import.meta.env.VITE_SUPABASE_MESSAGES_TABLE?.trim() || 'message';
 
 export const useMessages = () => {
   const table = useMemo(() => getMessagesTable(), []);
@@ -52,7 +52,10 @@ export const useMessages = () => {
 
         if (insError) throw insError;
 
-        setMessages((prev) => [data, ...prev]);
+        setMessages((prev) => {
+          if (data?.id != null && prev.some((m) => m.id === data.id)) return prev;
+          return [data, ...prev];
+        });
         return data;
       } catch (err) {
         console.error('메시지 추가 실패:', err);
@@ -78,8 +81,12 @@ export const useMessages = () => {
           table,
         },
         (payload) => {
-          console.log('새 메시지:', payload.new);
-          setMessages((prev) => [payload.new, ...prev]);
+          const row = payload.new;
+          console.log('새 메시지:', row);
+          setMessages((prev) => {
+            if (row?.id != null && prev.some((m) => m.id === row.id)) return prev;
+            return [row, ...prev];
+          });
         }
       )
       .subscribe();
