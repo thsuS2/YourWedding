@@ -8,7 +8,8 @@
  */
 
 export const GALLERY_IMAGES = [
-  'ChatGPT_wedding.png'
+  'ChatGPT_wedding.png',
+  'KakaoTalk_Photo_2026-04-05-13-22-30.jpeg'
 ];
 
 /**

@@ -1,9 +1,27 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  const siteUrl = (env.VITE_SITE_URL || '').trim().replace(/\/$/, '')
+
+  return {
+  plugins: [
+    react(),
+    /* index.html의 __SITE_URL__ → 배포 도메인 (OG·카카오 스크래퍼는 og:image 절대 URL 필요) */
+    {
+      name: 'html-replace-site-url',
+      transformIndexHtml(html) {
+        if (!siteUrl) {
+          console.warn(
+            '[vite] VITE_SITE_URL이 비어 있습니다. OG 미리보기용 절대 URL이 들어가지 않습니다. .env 또는 Vercel 환경 변수를 설정하세요.'
+          )
+        }
+        return html.replace(/__SITE_URL__/g, siteUrl)
+      },
+    },
+  ],
   base: '/', // Vercel 배포시 루트 경로 사용
   
   build: {
@@ -31,4 +49,5 @@ export default defineConfig({
     port: 5173,
     open: true, // 서버 시작시 자동으로 브라우저 열기
   },
+  }
 })

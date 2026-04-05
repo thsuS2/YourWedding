@@ -1,19 +1,12 @@
-import { useEffect } from 'react';
-import { initKakao, shareKakao } from '../utils/kakaoShare';
 import { shareUrl } from '../utils/shareUrl';
 import { useToastContext } from '../contexts/ToastContext';
 import './Footer.css';
-import { SiKakao } from 'react-icons/si';
 import { IoShareSocial } from 'react-icons/io5';
 import FlowerImage from '../assets/images/rose-flower.png';
 import Button from './common/Button';
 
 const Footer = () => {
   const { showSuccess } = useToastContext();
-
-  useEffect(() => {
-    initKakao();
-  }, []);
 
   const handleSnsShare = async () => {
     const result = await shareUrl();
