@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './MapSection.css';
-import { VENUE, getFormattedDate, WEDDING_DATE } from '../../constants/wedding';
+import { VENUE } from '../../constants/wedding';
 import { useToastContext } from '../../contexts/ToastContext';
 import { SiKakao, SiNaver } from 'react-icons/si';
 import { IoBusSharp, IoCarSharp, IoFlagOutline, IoSubwaySharp } from 'react-icons/io5';
@@ -117,13 +117,10 @@ const MapSection = ({ onOpenRSVP }) => {
           map: mapInstance.current,
         });
 
-        /* 가로형 썸네일: 상단 풀폭 배너 + 하단 텍스트 (인포창은 넓게, 글자는 사이트 타이포 스케일보다 작게) */
-        const imgHtml = VENUE.infoWindowImage
-          ? `<img src="${VENUE.infoWindowImage}" alt="" style="display:block;width:100%;height:5.25rem;object-fit:cover;object-position:center;border-radius:0.375rem;" />`
-          : '';
-        const textHtml = `<div style="font-size:0.6875rem;font-weight:600;text-align:center;line-height:1.4;color:#333;">${VENUE.name}<br/>${VENUE.hall}<br/><span style="color:#666;font-weight:400;font-size:0.625rem;line-height:1.45;">${getFormattedDate()}<br/>${WEDDING_DATE.time}</span></div>`;
+        // 인포윈도우는 장소 정보만 간단하게 노출한다.
+        const textHtml = `<div style="font-size:0.75rem;font-weight:600;text-align:center;line-height:1.5;color:#333;white-space:nowrap;">${VENUE.name}<br/>${VENUE.hall}</div>`;
         const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="box-sizing:border-box;padding:0.625rem 0.75rem;display:flex;flex-direction:column;align-items:stretch;gap:0.5rem;min-width:min(16.5rem,88vw);max-width:17.5rem;">${imgHtml}${textHtml}</div>`,
+          content: `<div style="box-sizing:border-box;padding:0.625rem 0.875rem;display:flex;align-items:center;justify-content:center;min-width:8.5rem;">${textHtml}</div>`,
         });
         infowindow.open(mapInstance.current, marker);
 
@@ -231,16 +228,6 @@ const MapSection = ({ onOpenRSVP }) => {
                         key={index}
                         style={{ display: 'block', marginBottom: index === 0 ? '0.5rem' : '0.25rem' }}
                       >
-                        {index > 0 && (
-                          <IoBusSharp
-                            size={16}
-                            style={{
-                              verticalAlign: 'middle',
-                              marginRight: '0.5rem',
-                              color: 'var(--text-lightest)',
-                            }}
-                          />
-                        )}
                         {trimmedPart}
                       </span>
                     );
@@ -253,14 +240,6 @@ const MapSection = ({ onOpenRSVP }) => {
           <div className="transport-item">
             <div className="transport-label text-heading-small">자가용</div>
             <div className="transport-detail text-body-gray">
-              <IoCarSharp
-                size={16}
-                style={{
-                  verticalAlign: 'middle',
-                  marginRight: '0.5rem',
-                  color: 'var(--text-lightest)',
-                }}
-              />
               {VENUE.transportation.car}
             </div>
           </div>
@@ -270,14 +249,6 @@ const MapSection = ({ onOpenRSVP }) => {
               <div className="transport-item">
                 <div className="transport-label text-heading-small">캠퍼스 안내</div>
                 <div className="transport-detail text-body-gray">
-                  <IoFlagOutline
-                    size={16}
-                    style={{
-                      verticalAlign: 'middle',
-                      marginRight: '0.5rem',
-                      color: 'var(--text-lightest)',
-                    }}
-                  />
                   {VENUE.transportation.campus}
                 </div>
               </div>

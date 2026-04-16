@@ -19,6 +19,7 @@
 }
 
 .quote-text {
+  color: var(--text-dark);
   font-size: 1.3rem;
   white-space: pre-line;
   line-height: 1.8;

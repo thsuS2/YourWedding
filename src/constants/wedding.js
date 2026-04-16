@@ -103,6 +103,20 @@ export const ACCOUNTS = [
     holder: COUPLE.groom.fullName,
   },
   {
+    side: 'groom',
+    name: '아버지 윤춘섭',
+    bank: '우리은행',
+    number: '1002-262-515015',
+    holder: COUPLE.groom.parents.father,
+  },
+  {
+    side: 'groom',
+    name: '어머니 정양실',
+    bank: '우리은행',
+    number: '1002-454-807228',
+    holder: COUPLE.groom.parents.mother,
+  },
+  {
     side: 'bride',
     name: '신부 최지윤',
     bank: '국민은행',
