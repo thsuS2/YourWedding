@@ -202,14 +202,6 @@ const MapSection = ({ onOpenRSVP }) => {
           <div className="transport-item">
             <div className="transport-label text-heading-small">대중교통</div>
             <div className="transport-detail text-body-gray">
-              <IoSubwaySharp
-                size={16}
-                style={{
-                  verticalAlign: 'middle',
-                  marginRight: '0.5rem',
-                  color: 'var(--text-lightest)',
-                }}
-              />
               {VENUE.transportation.subway}
             </div>
           </div>
