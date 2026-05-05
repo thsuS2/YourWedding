@@ -16,7 +16,9 @@ const MapSection = ({ onOpenRSVP }) => {
 
   const openMap = (type) => {
     if (type === 'kakao') {
-      window.open(`https://map.kakao.com/link/search/${encodeURIComponent(VENUE.name)}`, '_blank');
+      const fallback = `https://map.kakao.com/link/search/${encodeURIComponent(VENUE.name)}`;
+      const url = VENUE.kakaoMapUrl?.trim() || fallback;
+      window.open(url, '_blank');
     } else if (type === 'naver') {
       const searchQuery =
         VENUE.naverSearchQuery?.trim() || `${VENUE.name} ${VENUE.hall}`.trim();

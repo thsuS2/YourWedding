@@ -25,7 +25,8 @@ const MainSection = () => {
 
 서로의 다름을 이해하고 조금씩 닮아가며
 저희 두 사람,
-서로의 손을 잡고 같은 길을 걸어가려 합니다.`;
+서로의 손을 잡고 
+같은 길을 걸어가려 합니다.`;
 
   return (
     <section id="main" className="main-section">
