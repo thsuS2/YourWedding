@@ -72,6 +72,8 @@ export const VENUE = {
   /** 카카오 지도 짧은 링크(선택). 있으면 검색어 대신 이 URL로 열림 */
   kakaoMapUrl:
     'https://map.kakao.com/?urlX=512738.9999999979&urlY=1134253.000000004&urlLevel=3&itemId=17563254&q=%EC%84%9C%EC%9A%B8%EC%8B%9C%EB%A6%BD%EB%8C%80%ED%95%99%EA%B5%90%20%EC%9E%90%EC%9E%91%EB%A7%88%EB%A3%A8&srcid=17563254&map_type=TYPE_MAP',
+  /** 카카오 장소 검색어 (지도 핀을 해당 장소로 맞추기 위함) */
+  kakaoSearchQuery: '서울시립대학교 자작마루',
   lat: 37.583917,
   lng: 127.059028,
   /** 카카오맵 마커 인포윈도우 썸네일 — public/images 아래 실제 파일 경로 */

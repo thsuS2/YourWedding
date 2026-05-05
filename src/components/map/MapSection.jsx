@@ -59,7 +59,7 @@ const MapSection = ({ onOpenRSVP }) => {
 
         const script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_API_KEY}&autoload=false`;
+        script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_API_KEY}&autoload=false&libraries=services`;
         script.async = true;
         script.onload = () => {
           if (window.kakao?.maps?.load) {
@@ -102,31 +102,53 @@ const MapSection = ({ onOpenRSVP }) => {
       }
 
       try {
-        const coords = new window.kakao.maps.LatLng(VENUE.lat, VENUE.lng);
-        const options = {
-          center: coords,
-          level: 3,
+        const fallbackCoords = new window.kakao.maps.LatLng(VENUE.lat, VENUE.lng);
+
+        const initializeMap = (coords) => {
+          const options = {
+            center: coords,
+            level: 3,
+          };
+
+          mapInstance.current = new window.kakao.maps.Map(mapContainer.current, options);
+
+          setTimeout(() => {
+            if (mapInstance.current) mapInstance.current.relayout();
+          }, 100);
+
+          const marker = new window.kakao.maps.Marker({
+            position: coords,
+            map: mapInstance.current,
+          });
+
+          // 인포윈도우는 장소 정보만 간단하게 노출한다.
+          const textHtml = `<div style="font-size:0.75rem;font-weight:600;text-align:center;line-height:1.5;color:#333;white-space:nowrap;">${VENUE.name}<br/>${VENUE.hall}</div>`;
+          const infowindow = new window.kakao.maps.InfoWindow({
+            content: `<div style="box-sizing:border-box;padding:0.625rem 0.875rem;display:flex;align-items:center;justify-content:center;min-width:8.5rem;">${textHtml}</div>`,
+          });
+          infowindow.open(mapInstance.current, marker);
+
+          setMapLoaded(true);
         };
 
-        mapInstance.current = new window.kakao.maps.Map(mapContainer.current, options);
+        const query = VENUE.kakaoSearchQuery?.trim() || `${VENUE.name} ${VENUE.hall}`.trim();
+        if (window.kakao?.maps?.services && query) {
+          const places = new window.kakao.maps.services.Places();
+          places.keywordSearch(query, (data, status) => {
+            if (status === window.kakao.maps.services.Status.OK && data?.length) {
+              const bestMatch = data[0];
+              const searchedCoords = new window.kakao.maps.LatLng(Number(bestMatch.y), Number(bestMatch.x));
+              initializeMap(searchedCoords);
+              return;
+            }
 
-        setTimeout(() => {
-          if (mapInstance.current) mapInstance.current.relayout();
-        }, 100);
+            // 검색 실패 시에도 기존 좌표로 지도를 보여준다.
+            initializeMap(fallbackCoords);
+          });
+          return;
+        }
 
-        const marker = new window.kakao.maps.Marker({
-          position: coords,
-          map: mapInstance.current,
-        });
-
-        // 인포윈도우는 장소 정보만 간단하게 노출한다.
-        const textHtml = `<div style="font-size:0.75rem;font-weight:600;text-align:center;line-height:1.5;color:#333;white-space:nowrap;">${VENUE.name}<br/>${VENUE.hall}</div>`;
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: `<div style="box-sizing:border-box;padding:0.625rem 0.875rem;display:flex;align-items:center;justify-content:center;min-width:8.5rem;">${textHtml}</div>`,
-        });
-        infowindow.open(mapInstance.current, marker);
-
-        setMapLoaded(true);
+        initializeMap(fallbackCoords);
       } catch (error) {
         console.error('카카오맵 생성 실패:', error);
         setMapLoaded(false);
